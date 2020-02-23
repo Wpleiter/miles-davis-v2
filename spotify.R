@@ -1,0 +1,2 @@
+Sys.setenv(SPOTIFY_CLIENT_ID = 'b4602c67d0a54a9a9dabe07ae3b3e1f6')
+Sys.setenv(SPOTIFY_CLIENT_SECRET = '2a2181aa28a04a10b1cd9c3124cd4065')

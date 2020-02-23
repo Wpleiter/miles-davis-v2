@@ -1,0 +1,241 @@
+---
+title: "Corpus MilesDavis CompMu 2020"
+author: "Willem Pleiter"
+date: "2020"
+output: 
+github_document
+---
+
+### __The Miles Davis Corpus__
+For my corpus I have decided to investigate the jazz trumpet player Miles Davis. Davis is known within the jazz and global community as a constant innovator and key figure of jazz music. His method for innovation was to constantly attract upcoming talents and stars within the upcoming current in jazz. He then instructed these youngsters with his own vision of jazz and this was reciprocated by the youngsters how provided him with their own new views. 
+
+In my corpus I will try to analyse Davis’ music by answering some of the following questions:
+
+-	How did Davis’ music change over time, what are the constants in his music and what are the variables?
+
+-	How did Davis’ music reflect other albums of each specific time period that he was adapting to?
+
+
+The following phases of Miles Davis’ oeuvre could be examined
+
+-	Early bebop/ Charlie Parker phase
+
+-	Hard Bop phase: (Miles Davis quartet with Horace Silver, Max Roach, Charles Mingus, Art Blakey)
+
+-	Gil Evans orchestral phase (Sketches in Spain)
+
+-	Miles Davis first quintet (Coltrane, Adderley, Evans, Kelly). This coincides with Gil Evans
+
+-	Miles Davis second quintet (Carter, Hancock, Williams, Shorter)
+
+-	Miles Davis electric/funk fusion (Corea, Jarrett) (Bitches Brew, 
+
+-	Miles Davis post 80ies Hip-hop modern contemporary phase
+
+I intend to use atleast one album of each period and compare them to each other and perhaps compare them to other big albums. This comparison will be mostly analysed through spotify data, but when allowed I would like to also harmonically and culturally analyse them. For instance, I know that Miles Davis was heavily influenced by Ahmad Jamal prior to his Cool Jazz phase, which could be interesting to compare.
+
+
+
+#### __Preliminary Analysis__
+For the preliminary analysis, I will just get the entire discography of Miles from Spotify and run some general statistic analyses:
+
+loading libraries
+```{r message=FALSE, warning=FALSE}
+# Load libraries (every time)
+
+library(tidyverse)
+library(spotifyr)
+library(ggplot2)
+source('spotify.R')
+```
+
+__Audio Features__ <br>
+Getting the entire Miles Davis catalogue. This is a very rough representation of his statistics, since a lot of compilation albums, posthumous releases containing the same tracks are included.
+
+```{r message=FALSE, warning=FALSE}
+miles_davis <- get_artist_audio_features("Miles Davis")
+```
+
+__Histograms__ <br>
+Showing Histograms of the main audio features of all songs:
+```{r echo = FALSE}
+par(mfrow = c(2, 2))
+hist(miles_davis$danceability, main = "Miles Davis Danceability", xlab = "Danceability")
+hist(miles_davis$energy, main = "Miles Davis Energy", xlab = "Energy")
+hist(miles_davis$speechiness, main = "Miles Davis Speechiness", xlab = "Speechiness")
+hist(miles_davis$acousticness, main = "Miles Davis Acousticness", xlab = "Acousticness")
+par(mfrow = c(2, 2))
+hist(miles_davis$instrumentalness, main = "Miles Davis Instrumentalness", xlab = "Instrumentalness")
+hist(miles_davis$liveness, main = "Miles Davis Liveness", xlab = "Liveness")
+hist(miles_davis$valence, main = "Miles Davis Valence", xlab = "Valence")
+hist(miles_davis$loudness, main = "Miles Davis Loudness", xlab = "Loudness")
+
+```
+
+Here are the histograms of music features like key, mode, tempo of each song
+```{r}
+par(mfrow = c(2,2))
+plot(table(miles_davis$key), main = "Miles Davis Key", xlab = "key, C = 1, C# = 2 etc.", ylab = "Frequency")
+hist(miles_davis$mode, main = "Miles Davis Mode", xlab = "Mode (0 = minor, 1 = major)")
+hist(miles_davis$tempo, main = "Miles Davis Tempo", xlab = "Tempo in bpm")
+
+```
+
+__Descriptive statistics and outliers__ <br>
+Here are some descriptive statistics:
+```{r, echo = FALSE}
+Miles_matrix <- matrix(0, 11, 4)
+rownames(Miles_matrix) = c("Danceability", "Energy", "Key", "Loudness", "Mode", "Speechiness", "Acousticness", "Instrumentalness", "Liveness", "Valence", "Tempo") 
+colnames(Miles_matrix) = c("Mean", "SD", "Median", "Mode")
+
+for(i in 1:11){
+  Miles_matrix[i, 1] <- mean(miles_davis[,i + 8])
+  Miles_matrix[i, 1] <- round(Miles_matrix[i, 1], digits = 2)
+}
+for(i in 1:11){
+  Miles_matrix[i, 2] <- sd(miles_davis[,i + 8])
+  Miles_matrix[i, 2] <- round(Miles_matrix[i, 2], digits = 2)
+}
+for(i in 1:11){
+  Miles_matrix[i, 3] <- median(miles_davis[,i + 8])
+  Miles_matrix[i, 3] <- round(Miles_matrix[i, 3], digits = 2)
+}
+
+
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+for(i in 1:11){
+  Miles_matrix[i, 4] <- getmode(miles_davis[,i + 8])
+  Miles_matrix[i, 4] <- round(Miles_matrix[i, 4], digits = 2)
+}
+
+```
+
+
+#### Week 7
+In this week I want to further get into my preliminary analysis by using ggplot. The following goals are formulated:
+-	Filter out compilation/posthumous albums
+
+-	Subset data according to decades
+
+- Create plots comparing different characteristics from each decade
+
+__Ggplot__ <br>
+Working with ggplot to plot danceability vs popularity scatterplot and valence added as well.
+```{r}
+Dance_v_pop <- ggplot(miles_davis, aes(x = danceability, y = energy, color = valence)) + geom_point()
+Dance_v_pop
+```
+
+
+__Subsets__ <br>
+Lets create subsets based on decades:
+```{r}
+#50ies
+miles_50s <- subset(miles_davis, album_release_year > 1950 & album_release_year < 1960)
+miles_50s$Time_Period <- "1950ies"
+
+#60ies
+miles_60s <- subset(miles_davis, album_release_year > 1959 & album_release_year < 1970)
+miles_60s$Time_Period <- "1960ies"
+
+#70ies
+miles_70s <- subset(miles_davis, album_release_year > 1969 & album_release_year < 1980)
+miles_70s$Time_Period <- "1970ies"
+
+#80ies_todeath
+miles_80s <- subset(miles_davis, album_release_year > 1979 & album_release_year < 1992)
+miles_80s$Time_Period <- "1980ies"
+
+
+
+miles_decades <- rbind(miles_50s, miles_60s, miles_70s, miles_80s)
+
+```
+
+
+__Plotting characteristics__ <br>
+Plotting the energy and Danceability and valence per decade:
+```{r}
+ggplot(miles_decades, aes(x = danceability, y = energy, col = Time_Period)) + 
+  geom_jitter()
+```
+
+
+Making Facet grids based on decade
+
+```{r}
+ggplot(miles_decades, aes(x = danceability, y = energy, col = valence)) + 
+  geom_point(size = 3, alpha = 0.6) +
+  facet_grid(. ~ Time_Period)
+```
+
+__Barplots and descriptive statistics__ <br>
+Checking keys with barplots:
+```{r}
+ggplot(miles_decades, aes(key_name, fill = key_name)) + 
+  geom_bar() + 
+  theme(legend.position = "none") + 
+  labs(x = "key") + 
+  facet_grid(. ~ Time_Period)
+```
+Checking modes:
+```{r}
+ggplot(miles_decades, aes(as.factor(mode_name), fill = as.factor(mode_name))) + 
+  geom_bar() + 
+  theme(legend.position = "none") + 
+  labs(x = "mode") + 
+  facet_grid(. ~ Time_Period)
+```
+
+
+
+Comparing means with a barplot:
+```{r echo = FALSE}
+Mean_danceability <- ggplot(miles_decades, aes(x = Time_Period, y = danceability, fill = Time_Period)) + 
+  geom_bar(stat = "summary", position = "dodge", fun.y = "mean") + 
+  theme(legend.position = "none") + 
+  labs(x = "", y = "Mean Danceability")
+
+Mean_Energy <- ggplot(miles_decades, aes(x = Time_Period, y = energy, fill = Time_Period)) + 
+  geom_bar(stat = "summary", position = "dodge", fun.y = "mean") + 
+  theme(legend.position = "none") + 
+  labs(x = "", y = "Mean Energy")
+
+Mean_val <- ggplot(miles_decades, aes(x = Time_Period, y = valence, fill = Time_Period)) + 
+  geom_bar(stat = "summary", position = "dodge", fun.y = "mean") + 
+  theme(legend.position = "none") + 
+  labs(x = "", y = "Mean Valence")
+
+
+Mean_live <- ggplot(miles_decades, aes(x = Time_Period, y = liveness, fill = Time_Period)) + 
+  geom_bar(stat = "summary", position = "dodge", fun.y = "mean") + 
+  theme(legend.position = "none") + 
+  labs(x = "", y = "Mean Liveness")
+
+
+library(gridExtra)
+grid.arrange(Mean_danceability, Mean_Energy, Mean_val, Mean_live, nrow = 2, ncol=2)
+
+
+```
+
+__Conclusion Week 7__ <br>
+This week I've created subsets and found some interesting differences between decades with regards to acousticness, energy and liveness and I can already get a pretty clear picture of each decade. However the decade subset is still a bit arbitrary, perhaps some historic research is required to correctly split the time periods to reflect Miles' innovations. Furthermore the following could be done:
+-	Get audio-analysis features from spotify or track popularity data (although not historic)
+
+- Subset time periods more accurately
+
+- maybe start with running some statistical tests or analysis
+
+- formulate hypotheses about what you want to test and why.
+
+- include some examples via Spotify Embed, polish up portfolio and start to actually create a timeline.
+
+
+
+
+
