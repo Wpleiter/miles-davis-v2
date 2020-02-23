@@ -1,12 +1,11 @@
 ---
-title:  'Computational Musicology'
-author: 'John Ashley Burgoyne'
+title:  'The Miles Davis story told through Spotify data'
+author: 'Willem Pleiter'
 date:   'February--March 2020'
 output: 
     flexdashboard::flex_dashboard:
         storyboard: true
         theme: flatly
-    github_document
 ---
 
 ```{r setup}
@@ -18,12 +17,13 @@ library(Cairo)
 source('spotify.R')
 ```
 
-Instructions:
-```{r}
-### Three hashtags create a panel block. Use a sentence that describes the contents (so no introductions et cetera)
-```
 
 ### The Musically shapeshifting genius that is Miles Davis 
+![Self-portrait by Miles Davis](milespainting5.jpg)
+
+
+
+***
 
 For my corpus I have decided to investigate the jazz trumpet player Miles Davis. Davis is known within the jazz and global community as a constant innovator and key figure of jazz music. His method for innovation was to constantly attract upcoming talents and stars within the upcoming current in jazz. He then instructed these youngsters with his own vision of jazz and this was reciprocated by the youngsters how provided him with their own new views. 
 
@@ -94,22 +94,12 @@ miles_wide <- miles_long %>%
 ```
 
 
-***
-
-Placeholder for a picture or collage of miles'albums or paintings
-
 
 
 ### Miles transformations are visible in data from Spotify
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-
 #Slopegraph is not in my gg-package for some reason, trying something else:
-if (!require("remotes")) {
-    install.packages("remotes")
-}
-remotes::install_github("leeper/slopegraph")
-
 library("slopegraph")
 
 #Creating a unique matrix to fulfill the conditions of ggplot
@@ -192,23 +182,18 @@ data <- Miles_slope
 xlabels <- names(data)
 
 palette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00")
-ggslopegraph(Miles_slope, offset.x = 0.06,xlim = c(-0.5,7.9),
-  decimals = 2, col.lab = palette, col.lines = palette, col.num = palette, xlabels = c("'45-'50", "'51-'55", "'55-'63", "'63-'68", "'68-'75", "'75, '80", "'80-'92")) + 
+ggslopegraph(Miles_slope, offset.x = 1, main = "Mean Audio Features Of Miles Davis Per Period", xlim = c(-1,7),
+  decimals = 2, col.lab = palette, col.lines = palette, col.num = palette, xlabels = c("'45-'50", "'51-'55", "'55-'63", "'63-'68", "'68-'75", "'75, '80", "'80-'92"), labpos.right = 10, labpos.left = 0.7) + 
   theme(panel.grid =element_blank(), panel.background = element_blank())
 
 ```
 
+***
+When starting out his career, Miles started playing with the bebop-greats like Charlie Parker and Dizzie Gillespie, bebop is a jazz-genre that was (kind of) mainstream during the 1940ies and was characterized by high tempo's and a great focus on technical skill rather than expression. Miles never was a great technical player (compared to the big figures of the time) and was keen on going towards slower paced music in which he could show his sense of expression. As such he was one of the pivotal figures in the "Cool Jazz" movement that emerged in the early 50ies and resulted in slower paced music. This is the point in which the energy seemed to drop along with the valence. <br>
 
+At the turn of the 60ies Miles wanted to get rid of conventional music harmonic theory and looked to experiment with more difficult time-signatures, free-jazz (in which the form was completely lost) and electrical instruments. This is best characterized by the decrease in acousticness. Another trend seen in the chart is the increase in liveness of his oeuvre which is best explained by the fact that he wanted to create music on the spot as much as possible, with long improvised songs that did not follow any predetermined structure. 
 
-
-
-
-
-
-
-
-
-
+<i> This was just an introduction, the text is not definite and I will have to look up more stuff </i>
 
 
 
@@ -223,4 +208,10 @@ ggplot(miles_long, aes(x = danceability, y = energy, col = valence)) +
 
 ```
 
+***
+Interpretation will follow soon
+
+
+### Conclusion week 8
+So far I've worked on some extra plots and incorporating everything into a storyboard. I still have a lot to do though....
 
