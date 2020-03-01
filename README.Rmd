@@ -46,6 +46,7 @@ loading libraries
 library(tidyverse)
 library(spotifyr)
 library(ggplot2)
+library(compmus)
 source('spotify.R')
 ```
 
@@ -383,5 +384,65 @@ ggslopegraph(Miles_slope, offset.x = 0.06,xlim = c(-0.5,7.9),
 
 
 ```
+### Week 10
+Making self-similarity matrices
+
+```{r}
+#four levels of structure
+#Segments are not regularly spaced, but the smallest units possible, Spotify makes a very finely grained self-similarity-matrix
+#Beats, Bars and sections
+#segment for spotify is super low short thing. Section is a chorus, verse, bridge etc. Used interchangeably in literature but section is higher level
+
+#You can use euclidian or manhattan
+#Chebyshev is not useful for distance
+#If you're working with Chroma + manhattan, use manhattan and aitchison, Aitchison most musical
+#Euclidean is also possible
+#Chebyshev is not great for similarity matrix, chromagram it could be used, but try to stick to manhattan or Euclidean
+
+#TIMBRE FEATURES
+#Spotify gives you average values of zero, but range is Inf to -Inf. Positive is high, negative is low, should be centered at 0
+
+
+
+get_track_audio_analysis()
+```
+
+
+
+
+
+```{r}
+ST1958 <- 
+  get_tidy_audio_analysis("URI")
+  compmus_align(bars, segments %>%#you can use beats, or sections as well) 
+                select(bars) %>% unnest(bars) %>%
+                  mutate(
+                    pitches = 
+                      map(segments,
+                          compus_summarise, pitches,
+                          method = 'rms', norm = 'euclidian')) %>% #aitchision is also possible (lower case)
+                  mutate(
+                    timbre = 
+                      map(segments,
+                          compmus_summarise, timbre,
+                          method = "mean")
+                  )
+                  
+```
+
+Plots See Canvas
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
 
 
