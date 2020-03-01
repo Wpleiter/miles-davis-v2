@@ -146,12 +146,11 @@ Using Dynamical Time-warping, I have compared two renditions of the popular song
 
 
 Check out the 1991 Summertime rendition (same recording as on the album)! <br> <br>
-<iframe width="420" height="315"
-src="https://www.youtube.com/watch?v=K1pWm4pHSy4">
-</iframe>
+<audio controls>
+  <source src="Summertime - Miles Davis with Quincy Jones.mp3" type="audio/mp3">
+</audio>
 
-
-Have a listen to the song: <br><br>
+Have a listen to the 1959 rendition: <br><br>
 <audio controls>
   <source src="Miles Davis - Summertime.mp3" type="audio/mp3">
 </audio>
