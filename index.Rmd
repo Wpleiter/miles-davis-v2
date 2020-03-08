@@ -21,6 +21,137 @@ library(compmus)
 library(viridis)
 source('spotify.R')
 miles_davis <- get_artist_audio_features("Miles Davis")
+miles_davis$album_release_date <- substring(miles_davis$album_release_date, 1, 4)
+
+
+#For z-scores, filter on is.numeric and then use scale to get z-scores
+
+
+
+```
+
+
+
+
+### Update week 11
+This week I did not have a lot of time to update my portfolio due to other courses, I have processed some data, which updated my plots and provided some new interesting things:
+
+- There was a problem in de database in which a lot of the albums did not make my time period subsets (a lot of album release years were NAs for some reason, so I transformed the exact release data from days to years and used that instead), this yielded more data
+
+- I have decided to omit the hiatus years of Miles (1975 - 1980), since Spotify only has 1 album of that period, which is a re-release of an earlier period
+
+- I have filtered out a lot of compilation albums, remastered releases and later releases based on research to try to conclude original recordings exclusively
+
+- I have standardized everything song and made a list of typical songs, I have not yet had the time to analyse these songs
+
+- I have added and modified some interpretations to plots
+
+
+
+### Comparing the structure of the most typical songs of each time period
+Firstly I have made composite standardized z-scores based on acousticness, danceability, valence, energy and tempo. This allows me to filter out the most typical and atypical songs of each time period. The following is a list of typical songs (z < 0.01)
+
+Most typical songs per time (based on tempo, valence, danceability, acousticness and energy)
+40ies: 
+-	Half Nelson
+
+50ies:
+-	Boplicity, Birth of the Cool
+
+First Quintet
+-	‘Round Midnight
+
+Second Quintet:
+-	Dolores	
+
+Fusion:
+-	Willie Nelson - Live at Fillmore East, New York, NY - June 20, 1970
+
+Final years:
+-	Freaky Deaky
+
+
+***
+
+
+```{r}
+#filtering on numeric values
+
+#40ies
+miles40_filtered <- select_if(miles40ies, is.numeric)
+miles_composite40 <- miles40_filtered %>%
+  scale() %>%
+  as.data.frame() %>%
+  mutate(compositescore = (danceability + acousticness + valence + energy + tempo) / 5)
+
+which(miles_composite40[,18] < 0.01 & miles_composite40[,18] > -0.01)
+
+
+
+#50ies
+miles50_filtered <- select_if(Miles_early_50s, is.numeric)
+miles_composite50 <- miles50_filtered %>%
+  scale() %>%
+  as.data.frame() %>%
+  mutate(compositescore = (danceability + acousticness + valence + energy + tempo) / 5)
+
+which(miles_composite50[,18] < 0.01 & miles_composite50[,18] > -0.01)
+
+
+#modal
+milesmodal_filtered <- select_if(milesmodal, is.numeric)
+miles_compositemodal <- milesmodal_filtered %>%
+  scale() %>%
+  as.data.frame() %>%
+  mutate(compositescore = (danceability + acousticness + valence + energy + tempo) / 5)
+
+which(miles_compositemodal[,17] < 0.005 & miles_compositemodal[,17] > -0.005)
+
+
+
+
+#herbie
+milesherbie_filter <- select_if(miles_herbie, is.numeric)
+milesherbie_composite <- milesherbie_filter %>%
+  scale() %>%
+  as.data.frame() %>%
+  mutate(compositescore = (danceability + acousticness + valence + energy + tempo) / 5)
+
+which(milesherbie_composite[,17] < 0.005 & milesherbie_composite[,17] > -0.005)
+
+
+
+#Miles fusion
+milesfusion_filter <- select_if(miles_fusion, is.numeric)
+milesfusion_composite <- milesfusion_filter %>%
+  scale() %>%
+  as.data.frame() %>%
+  mutate(compositescore = (danceability + acousticness + valence + energy + tempo) / 5)
+
+which(milesfusion_composite[,17] < 0.005 & milesfusion_composite[,17] > -0.005)
+
+
+#Miles Death
+milesdeath_filter <- select_if(miles_death_clean, is.numeric)
+milesdeath_composite <- milesdeath_filter %>%
+  scale() %>%
+  as.data.frame() %>%
+  mutate(compositescore = (danceability + acousticness + valence + energy + tempo) / 5)
+
+which(milesdeath_composite[,17] < 0.01 & milesdeath_composite[,17] > -0.01)
+
+
+#Cleaning up Miles death with reissues:
+miles_death_clean <- miles_death
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "'58 Sessions: Featuring Stella")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue - Bonus Tracks)")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue)")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Bags' Groove")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Directions")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Stockholm 1960 Complete")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Our Delight")),]
+
+
 ```
 
 
@@ -111,11 +242,13 @@ ST1991_AF <- get_track_audio_features('1c2Lw08YnZq71rUyrb2r8F')
 ST1959 <- 
     get_tidy_audio_analysis('25H0Wd1ugPRXGM2LlpjVXM') %>% 
     select(segments) %>% unnest(segments) %>% 
-    select(start, duration, pitches)
+    select(start, duration, pitches) %>%
+    filter(start > 0, start < 72)
 ST1991 <- 
     get_tidy_audio_analysis('1c2Lw08YnZq71rUyrb2r8F') %>% 
     select(segments) %>% unnest(segments) %>% 
-    select(start, duration, pitches)
+    select(start, duration, pitches) %>%
+    filter(start > 3, start < 63)
 ```
 
 ```{r}
@@ -206,40 +339,53 @@ milesE50ies$Time_Period <- "1951-1954"
 names(milesE50ies)[12] <- "track_name"
 
 #first quintet and 1955-1962
-milesmodal <- subset(miles_davis, album_release_year > 1954 & album_release_year < 1963)
+milesmodal <- subset(miles_davis, album_release_date > 1954 & album_release_date < 1963)
 milesmodal_short <- as.data.frame(milesmodal[,c(9:19, 30)])
 milesmodal_short$Time_Period <- "1955-1962"
 
 
 #second quintet 1963-1968
-miles_herbie <- subset(miles_davis, album_release_year > 1963 & album_release_year < 1969)
+miles_herbie <- subset(miles_davis, album_release_date > 1963 & album_release_date < 1969)
 miles_herbie_short <- as.data.frame(miles_herbie[,c(9:19, 30)])
 miles_herbie_short$Time_Period <- "1963-1968"
 
 #Milesfusion:
-miles_fusion <- subset(miles_davis, album_release_year > 1969 & album_release_year < 1975)
+miles_fusion <- subset(miles_davis, album_release_date > 1969 & album_release_date < 1975)
 miles_fusionshort <- as.data.frame(miles_fusion[,c(9:19, 30)])
 miles_fusionshort$Time_Period <- "1969-1975"
 
-#Miles_hiatus
-miles_hiatus <- subset(miles_davis, album_release_year > 1976 & album_release_year < 1979)
-miles_hiatus_short <- as.data.frame(miles_hiatus[,c(9:19, 30)])
-miles_hiatus_short$Time_Period <- "1976 - 1979"
 
 #80ies_todeath
-miles_death <- subset(miles_davis, album_release_year > 1979 & album_release_year < 1992)
+miles_death <- subset(miles_davis, album_release_date > 1979 & album_release_date < 1993)
+
+#Clean
+miles_death_clean <- miles_death
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "'58 Sessions: Featuring Stella")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue - Bonus Tracks)")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue)")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Bags' Groove")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Directions")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Stockholm 1960 Complete")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Our Delight")),]
+
+miles_death <- miles_death_clean
+
 miles_death_short <- as.data.frame(miles_death[,c(9:19, 30)])
 miles_death_short$Time_Period <- "1980 - 1992"
 
 
 
-miles_long <- rbind(miles40ies_cut, milesE50ies, milesmodal_short, miles_herbie_short, miles_fusionshort, miles_hiatus_short, miles_death_short)
+
+
+
+
+
+
+miles_long <- rbind(miles40ies_cut, milesE50ies, milesmodal_short, miles_herbie_short, miles_fusionshort, miles_death_short)
 miles_wide <- miles_long %>%
   gather("danceability", "energy", "speechiness", "acousticness", "instrumentalness", "liveness", "valence", key = Feature, value = Parameter)
 
 ```
-
-
 
 
 ### Miles transformations are visible in data from Spotify
@@ -249,7 +395,7 @@ miles_wide <- miles_long %>%
 library("slopegraph")
 
 #Creating a unique matrix to fulfill the conditions of ggplot
-Miles_slope <- matrix(0, 7, 7)
+Miles_slope <- matrix(0, 7, 6)
 colnames(Miles_slope) <- unique(miles_wide$Time_Period)
 rownames(Miles_slope) <- names(miles_death_short[,c(1,2,6,7,8,9,10)])
 
@@ -303,23 +449,15 @@ Miles_slope[5,5] <- mean(miles_fusionshort[,8])
 Miles_slope[6,5] <- mean(miles_fusionshort[,9])
 Miles_slope[7,5] <- mean(miles_fusionshort[,10])
 
-#6
-Miles_slope[1,6] <- mean(miles_hiatus_short[,1])
-Miles_slope[2,6] <- mean(miles_hiatus_short[,2])
-Miles_slope[3,6] <- mean(miles_hiatus_short[,6])
-Miles_slope[4,6] <- mean(miles_hiatus_short[,7])
-Miles_slope[5,6] <- mean(miles_hiatus_short[,8])
-Miles_slope[6,6] <- mean(miles_hiatus_short[,9])
-Miles_slope[7,6] <- mean(miles_hiatus_short[,10])
 
-#7
-Miles_slope[1,7] <- mean(miles_death_short[,1])
-Miles_slope[2,7] <- mean(miles_death_short[,2])
-Miles_slope[3,7] <- mean(miles_death_short[,6])
-Miles_slope[4,7] <- mean(miles_death_short[,7])
-Miles_slope[5,7] <- mean(miles_death_short[,8])
-Miles_slope[6,7] <- mean(miles_death_short[,9])
-Miles_slope[7,7] <- mean(miles_death_short[,10])
+#6
+Miles_slope[1,6] <- mean(miles_death_short[,1])
+Miles_slope[2,6] <- mean(miles_death_short[,2])
+Miles_slope[3,6] <- mean(miles_death_short[,6])
+Miles_slope[4,6] <- mean(miles_death_short[,7])
+Miles_slope[5,6] <- mean(miles_death_short[,8])
+Miles_slope[6,6] <- mean(miles_death_short[,9])
+Miles_slope[7,6] <- mean(miles_death_short[,10])
 
 
 Miles_slope <- as.data.frame(Miles_slope)
@@ -329,7 +467,7 @@ xlabels <- names(data)
 
 palette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00")
 ggslopegraph(Miles_slope, offset.x = 1, main = "Mean Audio Features Of Miles Davis Per Period", xlim = c(-1,7), xlab = "Time Period", ylab = "Spotify Track Feature (0.00 - 1.00)",
-  decimals = 2, col.lab = palette, col.lines = palette, col.num = palette, xlabels = c("'45-'50", "'51-'55", "'55-'63", "'63-'68", "'68-'75", "'75, '80", "'80-'92"), labpos.right = 10, labpos.left = 0.7) + 
+  decimals = 2, col.lab = palette, col.lines = palette, col.num = palette, xlabels = c("'45-'50", "'51-'55", "'55-'63", "'63-'68", "'68-'75", "'80-'92"), labpos.right = 10, labpos.left = 0.7) + 
   theme(panel.grid =element_blank(), panel.background = element_blank())
 
 ```
@@ -337,7 +475,11 @@ ggslopegraph(Miles_slope, offset.x = 1, main = "Mean Audio Features Of Miles Dav
 ***
 When starting out his career, Miles started playing with the bebop-greats like Charlie Parker and Dizzie Gillespie, bebop is a jazz-genre that was (kind of) mainstream during the 1940ies and was characterized by high tempo's and a great focus on technical skill rather than expression. Miles never was a great technical player (compared to the big figures of the time) and was keen on going towards slower paced music in which he could show his sense of expression. As such he was one of the pivotal figures in the "Cool Jazz" movement that emerged in the early 50ies and resulted in slower paced music. This is the point in which the energy seemed to drop along with the valence. <br>
 
-At the turn of the 60ies Miles wanted to get rid of conventional music harmonic theory and looked to experiment with more difficult time-signatures, free-jazz (in which the form was completely lost) and electrical instruments. This is best characterized by the decrease in acousticness. Another trend seen in the chart is the increase in liveness of his oeuvre which is best explained by the fact that he wanted to create music on the spot as much as possible, with long improvised songs that did not follow any predetermined structure. 
+At the turn of the 60ies Miles wanted to get rid of conventional music harmonic theory and looked to experiment with more difficult time-signatures, free-jazz (in which the form was completely lost) and electrical instruments. This is best characterized by the sharp decrease in acousticness. Another trend seen in the chart is the increase in liveness of his oeuvre which is best explained by the fact that he wanted to create music on the spot as much as possible, with long improvised songs that did not follow any predetermined structure. 
+
+During the 68 to 75 years his electrical playing was at its peak, and was more frantic and all over the place than the period before. This is seen by the increase in energy. 
+
+In his last decade, Miles was a shapeshifter trying to cover popsongs, and ventured into hiphop(Doo Bop), while remaining true to experimental music.
 
 <i> This was just an introduction, the text is not definite and I will have to look up more stuff </i>
 
@@ -349,24 +491,18 @@ At the turn of the 60ies Miles wanted to get rid of conventional music harmonic 
 # miles_plot <- ggplot(miles_decades, aes(x = danceability, y = energy, col = Time_Period)) + 
 #   geom_jitter()
 
-ggplot(miles_long, aes(x = danceability, y = energy, col = valence, label = track_name)) + 
+plot <- ggplot(miles_long, aes(x = danceability, y = energy, col = valence, label = track_name)) + 
   geom_point(size = 1.5, alpha = 0.6) +
   facet_wrap(. ~ Time_Period) +
       geom_rug(size = 0.1)       # Add 'fringes' to show data distribution.
 
+ggplotly(plot)
+
+
 ```
 
 ***
-Interpretation will follow soon
+A general trend is clearly visible during Miles lifetime, in which a predominantly low energy and high valence repertoire (1944 - 1954) gradually diversified to cover the entire of the spectrum in 1969-1975, after which it remained mostly upbeat in his last years. The 1955-1962 (modal and first quintet years) are by far his most productive (292 datapoints) and are characterized by lots of low energy low valence ballad tunes and mid-danceability. The music in these years are what he is mostly remembered by now, although he heavily resisted to play this music in later years. 
 
 
-### Conclusion week 10
-So far I've worked on some individual analyses, I finetuned some things last week but still have the following to do:
-- Analyse Miles music chronologically in one panel
-
-- Take Key characteristics, tempi and more and summarize that
-
-- Try to fix dynamic timewarping or use other comparative measures
-
-- Interpret and write stuff
 
