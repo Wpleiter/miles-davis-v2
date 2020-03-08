@@ -24,6 +24,69 @@ miles_davis <- get_artist_audio_features("Miles Davis")
 miles_davis$album_release_date <- substring(miles_davis$album_release_date, 1, 4)
 
 
+#Miles_Parker(1944-1950)
+
+miles40ies <- get_playlist_audio_features("Wpleiter", "1v8oL4Clr0LliAh6HNK4C2")
+miles40ies_cut <- as.data.frame(miles40ies[,c(6:16, 36)])
+names(miles40ies_cut)[12] <- "track_name"
+
+
+
+miles40ies_cut$Time_Period <- "1944-1950"
+#1950-1955
+Miles_early_50s <- get_playlist_audio_features("Wpleiter", "3lv2u17pbcXIoNZZtP8wZ5")
+milesE50ies <- as.data.frame(c(Miles_early_50s[,c(6:16, 36)]))
+milesE50ies$Time_Period <- "1951-1954"
+names(milesE50ies)[12] <- "track_name"
+
+#first quintet and 1955-1962
+milesmodal <- subset(miles_davis, album_release_date > 1954 & album_release_date < 1963)
+milesmodal_short <- as.data.frame(milesmodal[,c(9:19, 30)])
+milesmodal_short$Time_Period <- "1955-1962"
+
+
+#second quintet 1963-1968
+miles_herbie <- subset(miles_davis, album_release_date > 1963 & album_release_date < 1969)
+miles_herbie_short <- as.data.frame(miles_herbie[,c(9:19, 30)])
+miles_herbie_short$Time_Period <- "1963-1968"
+
+#Milesfusion:
+miles_fusion <- subset(miles_davis, album_release_date > 1969 & album_release_date < 1975)
+miles_fusionshort <- as.data.frame(miles_fusion[,c(9:19, 30)])
+miles_fusionshort$Time_Period <- "1969-1975"
+
+
+#80ies_todeath
+miles_death <- subset(miles_davis, album_release_date > 1979 & album_release_date < 1993)
+
+#Clean
+miles_death_clean <- miles_death
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "'58 Sessions: Featuring Stella")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue - Bonus Tracks)")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue)")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Bags' Groove")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Directions")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Stockholm 1960 Complete")),]
+miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Our Delight")),]
+
+miles_death <- miles_death_clean
+
+miles_death_short <- as.data.frame(miles_death[,c(9:19, 30)])
+miles_death_short$Time_Period <- "1980 - 1992"
+
+
+
+
+
+
+
+
+
+miles_long <- rbind(miles40ies_cut, milesE50ies, milesmodal_short, miles_herbie_short, miles_fusionshort, miles_death_short)
+miles_wide <- miles_long %>%
+  gather("danceability", "energy", "speechiness", "acousticness", "instrumentalness", "liveness", "valence", key = Feature, value = Parameter)
+
+
 #For z-scores, filter on is.numeric and then use scale to get z-scores
 
 
@@ -321,71 +384,6 @@ The following phases of Miles Davis’ oeuvre could be examined
 -	Miles Davis Hiatus: 1975-1980
 
 - Miles Davis final years: 1980-1992
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-#Miles_Parker(1944-1950)
-
-miles40ies <- get_playlist_audio_features("Wpleiter", "1v8oL4Clr0LliAh6HNK4C2")
-miles40ies_cut <- as.data.frame(miles40ies[,c(6:16, 36)])
-names(miles40ies_cut)[12] <- "track_name"
-
-
-
-miles40ies_cut$Time_Period <- "1944-1950"
-#1950-1955
-Miles_early_50s <- get_playlist_audio_features("Wpleiter", "3lv2u17pbcXIoNZZtP8wZ5")
-milesE50ies <- as.data.frame(c(Miles_early_50s[,c(6:16, 36)]))
-milesE50ies$Time_Period <- "1951-1954"
-names(milesE50ies)[12] <- "track_name"
-
-#first quintet and 1955-1962
-milesmodal <- subset(miles_davis, album_release_date > 1954 & album_release_date < 1963)
-milesmodal_short <- as.data.frame(milesmodal[,c(9:19, 30)])
-milesmodal_short$Time_Period <- "1955-1962"
-
-
-#second quintet 1963-1968
-miles_herbie <- subset(miles_davis, album_release_date > 1963 & album_release_date < 1969)
-miles_herbie_short <- as.data.frame(miles_herbie[,c(9:19, 30)])
-miles_herbie_short$Time_Period <- "1963-1968"
-
-#Milesfusion:
-miles_fusion <- subset(miles_davis, album_release_date > 1969 & album_release_date < 1975)
-miles_fusionshort <- as.data.frame(miles_fusion[,c(9:19, 30)])
-miles_fusionshort$Time_Period <- "1969-1975"
-
-
-#80ies_todeath
-miles_death <- subset(miles_davis, album_release_date > 1979 & album_release_date < 1993)
-
-#Clean
-miles_death_clean <- miles_death
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "'58 Sessions: Featuring Stella")),]
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue - Bonus Tracks)")),]
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "First Miles (Reissue)")),]
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Bags' Groove")),]
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Directions")),]
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Stockholm 1960 Complete")),]
-miles_death_clean <- miles_death_clean[-c(which(miles_death_clean$album_name == "Our Delight")),]
-
-miles_death <- miles_death_clean
-
-miles_death_short <- as.data.frame(miles_death[,c(9:19, 30)])
-miles_death_short$Time_Period <- "1980 - 1992"
-
-
-
-
-
-
-
-
-
-miles_long <- rbind(miles40ies_cut, milesE50ies, milesmodal_short, miles_herbie_short, miles_fusionshort, miles_death_short)
-miles_wide <- miles_long %>%
-  gather("danceability", "energy", "speechiness", "acousticness", "instrumentalness", "liveness", "valence", key = Feature, value = Parameter)
-
-```
 
 
 ### Miles transformations are visible in data from Spotify
@@ -491,13 +489,10 @@ In his last decade, Miles was a shapeshifter trying to cover popsongs, and ventu
 # miles_plot <- ggplot(miles_decades, aes(x = danceability, y = energy, col = Time_Period)) + 
 #   geom_jitter()
 
-plot <- ggplot(miles_long, aes(x = danceability, y = energy, col = valence, label = track_name)) + 
+ggplot(miles_long, aes(x = danceability, y = energy, col = valence, label = track_name)) + 
   geom_point(size = 1.5, alpha = 0.6) +
   facet_wrap(. ~ Time_Period) +
       geom_rug(size = 0.1)       # Add 'fringes' to show data distribution.
-
-ggplotly(plot)
-
 
 ```
 
