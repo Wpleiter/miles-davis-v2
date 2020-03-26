@@ -1,0 +1,108 @@
+body {
+  padding-top: 70px;
+  font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height:1.42857143;
+  color:#888888;
+  background-color:#3c3c3c;
+  background-image: url("Nieuw_miles.png")}
+}
+
+.section.sidebar {
+  top: 61px;
+  background-color: rgba(147, 197, 75, 0.1);
+}
+
+.value-box {
+  color: inherit;
+}
+
+.bg-primary {
+  background-color: rgba(50, 93, 136, 0.3);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgb(18, 18, 18);
+  border-left: 3px solid #1db954;
+}
+
+.storyboard-nav .sbframelist ul li {
+    float: left;
+    width: 270px;
+    height: 100%;
+    padding: 10px 10px 10px 10px;
+    margin-right: 8px;
+    background: #121212;
+    /* border-left: 3px solid #1db954; */
+    border-radius: 3px;
+    border:0px solid #000;
+    color: #ffffff;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:focus {
+    color: #ffffff;
+    background-color: #7d7d7d;
+}
+
+
+.nav-tabs-custom > .nav-tabs > li > a {
+  border-top-color: white;
+  border-right-color: white;
+  border-left-color: white;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(50, 93, 136, 0.7);
+}
+
+.chart-wrapper, .nav-tabs-custom, .sbframe-commentary {
+    background: #181413;
+    border: 2px solid #7d7d7d;
+    color:#d9d9d9;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar-inverse{
+  background-color:#121212;
+  border-color:#080808
+}
+
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+    border-right: 1px solid #ffffff;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: #a7a7a7;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+    color: #ffffff;
+    background-color: #121212;
+    border-bottom: 2px solid #1db954;
+}
+
+.table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.tr:nth-child(even) {
+  background-color: #dddddd;
+}
