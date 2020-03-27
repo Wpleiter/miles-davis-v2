@@ -101,7 +101,7 @@ Spotify_SSM <- theme_classic() +
 Theme_facet <- Spotify_SSM + 
     theme(panel.grid.major.y =  element_line(colour = "white"),
           panel.background = element_rect(fill = 'lightgrey'),
-          axis.text.x = element_text(angle = 90),
+          F,
           strip.background =element_rect(fill="#181413", color = "#d9d9d9"),
           strip.text = element_text(color = "#d9d9d9"))
 
@@ -118,7 +118,7 @@ The Man with the Horn {.storyboard}
 =============================================================
 
 
-### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=800}
+### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=1050}
 ![Self-portrait by Miles Davis](milespainting5.png)
 
 
@@ -283,7 +283,9 @@ Modes <- ggplot(miles_long, aes(x = mode, fill = Time_Period), main = "Miles' Te
  geom_bar(show.legend = FALSE)  + ylab("Count") +
   ggtitle("Miles' Modes") + 
   facet_wrap(. ~ Time_Period) + 
-  Theme_facet
+  Theme_facet +
+  theme(axis.text.x = element_text(angle = 0))
+
 
 key <- as.factor(miles_long$key)
 
@@ -308,6 +310,7 @@ keys <- ggplot(miles_long, aes(x = key, fill = key), main = "Miles' Tempo's") +
  geom_bar(show.legend = FALSE)  + ylab("Count") +
   ggtitle("Miles' Keys") + 
   Theme_facet +
+  theme(axis.text.x = element_text(angle = 0)) +
   facet_wrap(. ~ Time_Period) 
 
 keys2 <- keys + theme(text = element_text(),
