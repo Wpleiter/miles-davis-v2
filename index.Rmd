@@ -97,6 +97,15 @@ Spotify_SSM <- theme_classic() +
           plot.title = element_text(colour = '#d9d9d9'),
           axis.line = element_line(colour = '#d9d9d9')
           )
+
+Theme_facet <- Spotify_SSM + 
+    theme(panel.grid.major.y =  element_line(colour = "white"),
+          panel.background = element_rect(fill = 'lightgrey'),
+          axis.text.x = element_text(angle = 90),
+          strip.background =element_rect(fill="#181413", color = "#d9d9d9"),
+          strip.text = element_text(color = "#d9d9d9"))
+
+
 Spotify_palette <- c("#213263", "#523650", "#7b4a31", "#006451", "#ef1e31", "#8c1932", "#fd6437", "#ffcfd6", "#c57b54", "#529cf5", "#213263", "#006451")
 
 #For z-scores, filter on is.numeric and then use scale to get z-scores
@@ -110,7 +119,7 @@ The Man with the Horn {.storyboard}
 
 
 ### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=800}
-![Self-portrait by Miles Davis](milespainting5.png){width=50%}
+![Self-portrait by Miles Davis](milespainting5.png)
 
 
 
@@ -126,30 +135,30 @@ In my corpus I will try to analyse Davis’ music by answering the following que
 
 
 
-For selecting the phases, I have looked at the bandmembers Miles had played with during these years and made playlists in Spotify to group these phases. After finishing this crude selection, I could identify six phases:
+For selecting the phases, I have looked at the bandmembers Miles had played with during these years and made playlists in Spotify to group these phases. The corpus consists of six phases:
 
 <b>Early bebop/Charlie Parker phase: 1945-1950</b> <br>
-During his formative years, Miles played with the bebop greats like Charlie Parker and Dizzy Gillespie, still mostly as a sideman, only playing solo's or accompanying the theme of the main player. Bebop is characterized by fast paced, harmonically nimble tunes that follow the standard jazz-structure of theme, solo and theme again.
+During his formative years, Miles played with the bebop greats like Charlie Parker and Dizzy Gillespie, still mostly as a sideman, only playing solo’s or accompanying the theme of the main player. Bebop is characterized by fast paced, harmonically nimble tunes that follow the standard jazz-structure of theme, solo and theme again
 
 <b>Hard Bop phase: 1950-1955 </b> <br>
-After the 40ies, most jazz musicians started to get tired of the musical acrobatics that bebop demanded, and switched to a less complex style of jazz called hard-bop. These are mostly mid-tempo, mellow tunes that follow clear structure and allowed for more space in songs. This is the period in which Miles would collabarate with a lot of different musicians, and would be the birth of his "cool" sound.
+After the 40ies, most jazz musicians started to get tired of the musical acrobatics that bebop demanded and switched to a less complex style of jazz called hard bop. These are mostly mid-tempo, mellow tunes that follow clear structure and allowed for more space in songs. This is the period in which Miles would collaborate with a lot of different musicians and would be the birth of his “cool” sound.
 
 <b>Modal phase: 1955-1962</b> <br>
-Pushing the limits of hard-bop, Miles wanted to winnow harmonic complexity even further, opting to reduce chord changes to as little as possible, in exchange for focussing on a certain mode (minor and major are the main categories, but come in a lot of variations). This is his most popular period, in which he released the most succesful selling jazz album of all time: Kind of Blue. This period was not entirely all modal though, also containing his collaborations with Gil Evans.
+Pushing the limits of hard-bop, Miles wanted to winnow harmonic complexity even further, opting to reduce chord changes to as little as possible, in exchange for focussing on a certain mode (minor and major are the main categories, but come in a lot of variations). This is his most popular period, in which he released the most successful selling jazz album of all time: Kind of Blue. 
 
 
 <b>Acoustic experimental phase: 1963-1968</b> <br>
-After "dumbing down" the music, Miles wanted to experiment again with harmonies, this time eschewing traditional harmony and pushing for less structured, more atonal music (heavily influenced by the harmonic departures of John Coltrane and the Free Jazz Movement). This is the period of his second great quintet, involving amongst others the youngsters Wayne Shorter and Herbie Hancock.
+After “dumbing down” the music, Miles wanted to experiment again with harmonies, this time eschewing traditional harmony and pushing for less structured, more atonal music (heavily influenced by the harmonic departures of John Coltrane and the Free Jazz Movement). This is the period of his second great quintet, involving amongst others the youngsters Wayne Shorter and Herbie Hancock.
 
-<b>Erratic Fusion Miles: 1969-1975</b> <br>
-With electronic instruments bursting onto the scene, and with his bandmate Herbie Hancock being at the forefront of the revolution, Miles could not be left behind. He surrounded him with some of these frontrunners (Chick Corea amongst others) and went full electrical, except for his trumpet. This period is characterized by long jams in which multiple genres (mostly from the funk/soul and rock influence) were blended with his own sounds, to create an erratic melting pot.
+<b>Frantic Fusion Miles: 1969-1975</b> <br>
+With electronic instruments bursting onto the scene, and with his bandmate Herbie Hancock being at the forefront of the revolution, Miles could not be left behind. He surrounded him with some of these frontrunners and went full electrical, except for his trumpet. This period is characterized by long jams in which multiple genres (mostly from the funk/soul and rock influence) were blended with his own sounds, to create an frantic melting pot.
 
 
 <b>The Lost Period (1975-1980)</b> <br>
-Not included in this corpus, in 1975 Miles left music behind following mental issues, drug addiction and overall fatigue. Having arguments with record companies and collaborations that fell through, Miles went on a 5 year hiatus to recenter himself. Perhaps something in the data would provide clues to this sudden departure.
+Not included in this corpus, in 1975 Miles left music behind following mental issues, drug addiction and overall fatigue. Having arguments with record companies and collaborations that fell through, Miles went on a 5-year hiatus to recentre himself. Perhaps something in the data would provide clues to this sudden departure.
 
-<b>The Last Miles (1980-1991)</b> <br>
-After returning, Miles continued on his innovative crusade, this time trying to incorporate the hip-hop and R&B influences of the time into his music. The music itself remained erratic to his death, but Miles showed willingness to revisit his older phases during this time.
+<b>The Final Miles (1980-1991)</b> <br>
+After returning, Miles continued his innovative crusade, this time trying to incorporate the hip-hop and R&B influences of the time into his music. The music itself remained frantic to his death, but Miles showed willingness to revisit his older phases during this time.
 
 
 
@@ -241,46 +250,14 @@ ggslopegraph(Miles_slope, offset.x = 1, main = "Mean Audio Features Of Miles Dav
 ```
 
 ***
-From the outset, the  Very clearly visible from this slopegraph is the huge dip in Acousticness during his lifetime, other things that are very cleary visible is a general increase in energy, a maximum of liveness during his '63 to '68 phase and a decline in overall valence, which increased during his final years. Danceability stayed constant, with a big increase during his last years. 
+The slope graph plot on the right shows Miles’ changes in the average Spotify features for each Time period. Very clearly visible is the huge dip in Acousticness during his lifetime. Other interesting elements are the general increase in energy, a maximum of liveness during his ’63 to ’68 phase and a decline in overall valence, which increased during his final years. Danceability stayed constant, with a big increase during his last years.
 
-The acousticness drop is easily interpretated, since he mostly switched to electrical instruments later on in life. A more difficult trend to interpret is the valence line. Valence is a measure of joyfulness in music, and as Miles became more erratic, his overall vibe became less joyful, after the hiatus it goes back to his original level, perhaps indicating that this hiatus motivated him to make more joyful music.
+The acousticness drop is easily interpreted, since he mostly switched to electrical instruments later in life. A more difficult trend to interpret is the valence line. Valence is a measure of joyfulness in music, and as Miles became more erratic, his overall vibe became less joyful, after the hiatus it goes back to his original level, perhaps indicating that this hiatus motivated him to make more joyful music.
 
-As valence dropped, energy rose, which is perhaps an odd combination, because you would assume that energetic music would be joyful music. The energy increase is explained by the increase in Miles increasing erraticness. Although he seems to have solved the balance of valence and energy in his final years. Even increasing danceability as well (perhaps hip-hop influences are responsible for this).
-
-
-
-### Miles in terms of Valence, Danceability and energy {data-commentary-width=500}
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-
-# miles_plot <- ggplot(miles_decades, aes(x = danceability, y = energy, col = Time_Period)) + 
-#   geom_jitter()
-
-ggplot(miles_long, aes(x = danceability, y = energy, col = valence)) + 
-  geom_point(size = 2, alpha = 0.6) +
-  facet_wrap(. ~ Time_Period) +
-      geom_rug(size = 0.1) +
-  scale_colour_gradient(low = "lightgreen", high = "darkgreen", na.value = NA) +
-    theme(plot.background = element_rect(fill = '#181413', colour = '#181413'),
-          legend.background = element_rect(fill = '#181413', colour = '#181413'),
-          legend.text = element_text(colour = '#d9d9d9'),
-          legend.title = element_text(colour = '#d9d9d9'),
-          axis.title = element_text(colour = '#d9d9d9'),
-          axis.text.x = element_text(colour = '#d9d9d9'),
-          axis.text.y = element_text(colour = '#d9d9d9'),
-          axis.ticks = element_line(colour = '#d9d9d9'),
-          panel.background = element_rect(fill = '#181413'),
-          )
-
-          
-  # Add 'fringes' to show data distribution.
-
-```
-
-***
-A general trend is clearly visible during Miles lifetime, in which a predominantly low energy and high valence repertoire (1944 - 1954) gradually diversified to cover the entire of the spectrum in 1969-1975, in which he coverd the entire charts. His 1956-1962 years look like a very clear three-way correlations between valence, energy and danceability, as low energy and danceability correspond with low valence. In his 1963-1965 years he stayed constant in these parameters, not showing that much variation, although this seems hard to explain. The 1969-1975 years are all over the place, really showing his erraticness of that time, but also look to be dominated by a lot of very low valence tunes. In his final years there is a big trend towards danceability and high valence, perhaps he refound joy after the dark period?
+As valence dropped, energy rose, which is perhaps an odd combination, because you would assume that energetic music would be joyful music. The energy increase is perhaps best explained by the increase in Miles increasing franticness. Although he seems to have solved the balance of valence and energy in his final years. Even increasing danceability as well (perhaps hip-hop influences are responsible for this).
 
 
-### On the one! Miles in terms of tempo, key and mode {data-commentary-width=400}
+### Miles in terms of tempo, key and mode {data-commentary-width=400}
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 
 # miles_plot <- ggplot(miles_decades, aes(x = danceability, y = energy, col = Time_Period)) + 
@@ -290,9 +267,10 @@ tempo <- ggplot(miles_long, aes(x = Time_Period, y = tempo, fill = Time_Period),
  geom_boxplot(show.legend = FALSE) + 
    xlab("Time Period") + ylab("Tempo in bpm") + 
   ggtitle("Miles' Tempo's") + 
+  Spotify_SSM +
   theme(text = element_text(),
-        axis.text.x = element_text(size=7, angle = 90)) + 
-  Spotify_SSM
+        axis.text.x = element_text(size=7, angle = 90))
+  
   
 
 mode <- as.factor(miles_long$mode)
@@ -305,7 +283,7 @@ Modes <- ggplot(miles_long, aes(x = mode, fill = Time_Period), main = "Miles' Te
  geom_bar(show.legend = FALSE)  + ylab("Count") +
   ggtitle("Miles' Modes") + 
   facet_wrap(. ~ Time_Period) + 
-  Spotify_SSM
+  Theme_facet
 
 key <- as.factor(miles_long$key)
 
@@ -329,12 +307,12 @@ miles_long$key <- key
 keys <- ggplot(miles_long, aes(x = key, fill = key), main = "Miles' Tempo's") + 
  geom_bar(show.legend = FALSE)  + ylab("Count") +
   ggtitle("Miles' Keys") + 
-  Spotify_SSM +
+  Theme_facet +
   facet_wrap(. ~ Time_Period) 
 
 keys2 <- keys + theme(text = element_text(),
         axis.text.x = element_text(size=7)) + 
-        Spotify_SSM
+        Theme_facet
 lay <- rbind(c(1,1,1,2,2),
              c(3,3,3,3,3))
 
@@ -345,79 +323,17 @@ grid.arrange(Modes, tempo, keys2, layout_matrix = lay)
 
 ***
 <b>Miles' Modes </b> <br>
-From the graph in the top left corner, it becomes apparent that Miles had a slight preference for the major key most of his life, although this effect is not substantive and could be due to errors in assigning modes in Spotify. The only really clear difference is during his erratic period, in which Major keys seem to dominate his songs, although from the slopegraph and the earlier valence graph it was visible that these were mostly low valence songs. 
+From the graph in the top left corner, it becomes apparent that Miles had a slight preference for the major key most of his life, although this effect is not substantive and could be due to errors in assigning modes in Spotify. The only clear difference is during his erratic period, in which Major keys seem to dominate his songs, although valence in this time dropped, showing that the major key is not always the happy key.
 
 <b>Miles' Tempo's </b> <br>
-Overall, the tempo's seem to be quite constant during Miles' lifetime. Interesting is that the spread of the first phase is sloped towards the higher tempo's (indicating the influence of bebop) and his slowing down during the cool and hard-bop phases. Another interesting outlier is the black dot at the zero mark during his 1969-1975 phase, this is an introduction track of a live album so should be omitted. 
+Overall, the tempos seem to be quite constant during Miles’ lifetime. Interesting is that the spread of the first phase is sloped towards the higher tempo’s (indicating the influence of bebop) and is slowing down during the cool and hard-bop phases. Another interesting outlier is the black dot at the zero mark during his 1969-1975 phase, this is an introduction track of a live album so should be omitted.
 
 <b>Miles' Keys </b> <br>
-In the early years there is a clear preference for the F-key in Miles' oeuvre. This makes sense, as a trumpet is generally tuned in Bb, with the most comfortable keys being F, Eb and Bb. The 1969-1975 years were mostly comprised of long jams, and the bandleader (Miles) would usually determine the key, which coincides with this comfort key being Bb in those years.
+In the early years there is a clear preference for the F-key in Miles’ oeuvre. This makes sense, as a trumpet is generally tuned in Bb, with the most comfortable keys being F, Eb and Bb. The 1969-1975 years were mostly comprised of long jams, and the bandleader (Miles) would usually determine the key, which coincides with this comfort key being Bb in those years.
 
-The keys E, Eb and Gb seem to be less favored by Miles, which is interesting because a lot of jazz is written in Eb. With musicians there is however a common tendency that if one favours a specific key (F in Miles' case), the keys surrounding that key are less favored, because they differ the most from the favourite key (other complimentary keys for F-minor are C-minor, Eb Minor, Ab-minor and complimentary for Major are A, C, D). It turns out that Miles follows this trend to avoid keys near to his favorite key.
+The keys E, Eb and Gb seem to be less favoured by Miles, which is interesting because a lot of jazz is written in Eb. With musicians there is however a common tendency that if one favours a specific key (F in Miles’ case), the keys surrounding that key are less favoured, because they differ the most from the favourite key. It turns out that Miles follows this trend to avoid the keys near to his favourite key.
 
-
-
-### Comparing similar renditions of Summertime has only yielded inconclusive results {data-commentary-width=550}
-```{r}
-ST1959_audio_features <- get_track_audio_features('25H0Wd1ugPRXGM2LlpjVXM')
-ST1991_AF <- get_track_audio_features('1c2Lw08YnZq71rUyrb2r8F')
-ST1959 <- 
-    get_tidy_audio_analysis('25H0Wd1ugPRXGM2LlpjVXM') %>% 
-    select(segments) %>% unnest(segments) %>% 
-    select(start, duration, timbre) %>%
-    filter(start > 0, start < 72)
-ST1991 <- 
-    get_tidy_audio_analysis('1c2Lw08YnZq71rUyrb2r8F') %>% 
-    select(segments) %>% unnest(segments) %>% 
-    select(start, duration, timbre) %>%
-    filter(start > 4, start < 72)
-```
-
-
-
-
-
-```{r}
-compmus_long_distance(
-    ST1959 %>% mutate(timbres = map(timbre, compmus_normalise, 'manhattan')),
-    ST1991 %>% mutate(timbres = map(timbre, compmus_normalise, 'manhattan')),
-    feature = timbres,
-    method = 'euclidean') %>% 
-    ggplot(
-        aes(
-            x = xstart + xduration / 2, 
-            width = xduration,
-            y = ystart + yduration / 2,
-            height = yduration,
-            fill = d,
-            main = "Miles Davis Summertime Comparison (1959 & 1991)")) + 
-    geom_tile() +
-    scale_fill_viridis_c(option = 'D', guide = 'none') +
-    labs(x = 'Summertime 1959', y = 'Summertime 1991') +
-    Spotify_SSM
-
-
-```
-
-
-***
-Using Dynamical Time-warping, I have compared two renditions of the popular song Summertime (Gershwin). One is recorded on the album Porgy & Bess by Miles in 1959 and arranged/produced by Gil Evans. The other is a 1991 (right before his death) rendition which uses the same arrangement and the same key. The differences between these tracks are that 1991 version is significantly faster (107 in 1959 and 132 in 1991).
-
-For the comparison I only used the theme, as these are similar in arrangement and similar in melody, although very much not equal, since theme's can vary wildly from eachother in jazz. For this reason, I wanted to compare timbres and not chroma features of the two songs, but to no avail. I used the manhattan normalisation and the euclidean distance to compare songs. But the fact that one was live and the other was a studio recording apparently made comparison very hard.
-
-When trying to compare the songs, A faint diagonal line can be made out around the middle of the graph with parallel lines above and under it, that wobbles a bit untill it disappears again around the 60 second mark. The theme repeats once, so this is visible. You would expect to see the line sloping upwards towards to end, showing that the 1991 version is considerably faster, but this is not visible. The checkerboard pattern does show some promising results in comparing similarities and shows that overall the timbres remain the same. Generally speaking, this would mostly be due to the very similar ensemble timbres. Miles sound was less strong in his later years.
-
-Check out the 1991 Summertime rendition (same recording as on the album)! <br> <br>
-<audio controls>
-  <source src="Summertime - Miles Davis with Quincy Jones.mp3" type="audio/mp3">
-</audio>
-
-Have a listen to the 1959 rendition: <br><br>
-<audio controls>
-  <source src="Miles Davis - Summertime.mp3" type="audio/mp3">
-</audio>
-
-<i>In conclusion of this page: Miles transformations are very cleary visible in terms of valence, danceability, acousticness and energy. The tempo's remained mostly the same, but Miles had a specific preference for the key F during his lifetime. Since we now have a global overview of his oeuvre, it is time to check out the most typical and atypical songs of each phase. Click on the tab "Typical Miles" in the navigation bar to continue. </i>
+<i>In conclusion of this page: Miles transformations are very clearly visible in terms of valence, danceability, acousticness and energy. The tempo’s remained mostly the same, but Miles had a specific preference for the key F during his lifetime. Since we now have a global overview of his oeuvre, it is time to check out the most typical songs of each phase. Click on the tab “Typical Miles” in the navigation bar to continue. </i>
 
 
 
@@ -435,6 +351,7 @@ Typical Miles {.storyboard}
 
 viridis_palette <- viridis(12)
 
+
 Typical_miles <- get_playlist_audio_features('Wpleiter', '586wDQmEni6bYtey5QaId3')
 Typical_miles_cut <- as.data.frame(Typical_miles[,c(6:16, 36)])
 
@@ -451,7 +368,7 @@ Typical_wide <- Typical_miles_cut %>%
 
 Features <- ggplot(Typical_wide, aes(x = Feature, y = Parameter, fill = Feature)) + 
   geom_col() +
-  Spotify_SSM + 
+  Theme_facet + 
   facet_wrap(.~ track.name) + 
    theme(axis.title.x=element_blank(),
         axis.text.x=element_blank(),
@@ -486,20 +403,26 @@ grid.arrange(Features, Tempi)
 
 ***
 
+The reason for selecting Miles’ most typical tracks, is that they allow me to zoom in on lower level audio features and get a better sense of the difference between time periods. These typical songs need to be representative of that time period, so later in this section I will check whether that was the case. The following questions are treated in this section:
 
-To select Miles' most typical tracks, I have made composite standardized z-scores based on acousticness, danceability, valence, energy and tempo. This allows me to filter out the most typical and atypical songs of each time period. The following is a list of typical songs (z < 0.1)
+-	What were the differences in timbre?
+-	What were the differences in tempo?
+
+I have decided to exclude Chord and Key-estimation, since jazz-music has a tendency to modulate a lot and use a lot of extended, ambiguous chords, which made interpreting these results very difficult. 
+
+To select Miles’ most typical tracks, I have made composite standardized z-scores based on acousticness, danceability, valence, energy and tempo. This allows me to filter out the most typical and atypical songs of each time period. The following is a list of typical songs (z < 0.1)
 
 Most typical songs per time (based on tempo, valence, danceability, acousticness and energy)
 
-1940-1949: Half Nelson
+1945-1949: Half Nelson
 
-1950-1959: Boplicity
+1950-1955: Boplicity
 
 1956-1962: ‘Round Midnight
 
 1963-1968: So What	
 
-1969-1975: Willie Nelson - Live at Fillmore East, New York, NY - June 20, 1970
+1969-1975: Willie Nelson
 
 1980-1991: Backyard Ritual
 
@@ -769,174 +692,15 @@ plot(g2)
 
 ***
 
-The self-similarity matrices (SSMs) shown here are based on timbre, with cosine distance and mean summary statistic. I've chose timbre of croma, because pitches tend to vary wildly in jazz, since more complex chords and accompaniment are usually present. Timbre is more of a constant feature and is hence better to examine structure.
+The self-similarity matrices (SSMs) shown here are based on timbre, with ‘Cosine’ distance and ‘mean’ summary statistic. The x and y axes are the songs duration in seconds (the song is being compared with itself), with brighter areas showing bigger timbre changes.
 
-Looking through the matrices, it is clear that in the first three phases the timbres remain mostly similar throughout the songs, with the squares of the checkerboard-pattern not showing major changes (green colours) and being mostly dark compared to other squares. For Half Nelson, there is one big change around the 120 second mark, which is the point where Miles starts to play his solo (prior to that Charlie Parker and Miles were playing together, with Charlie taking the first solo). Boplicity shows a similar pattern, in which solo's are highlighted. Dolores also follows this pattern. 
+In the first three phases (1945-1962) the timbres remain mostly similar throughout the songs, with the squares of the checkerboard-pattern not showing major changes (green colours) and being mostly dark compared to other squares. For Half Nelson, there is one big change around the 120 second mark, which is the point where Miles starts to play his solo (prior to that Charlie Parker and Miles were playing together, with Charlie taking the first solo). Boplicity shows a similar pattern, in which solo’s are highlighted. Dolores also follows this pattern. 
 
-So What is an interesting SSM because it has big green lines instead of the clear square pattern. So What is a track categorized by a lot of call & response, in which first one instrument plays and the others respond afterwards. This could be the reason for the lines appearing as they do. Furthermore, Miles plays sparsely, not stringing lines together, but rather making short statements with a lot of space between them, this is also a reason why the matrix shows these sharp lines instead of square-patterns.
+“So What” is an interesting SSM because it has big green lines instead of the clear square pattern. “So What” is a track categorized by a lot of call & response, in which first one instrument plays and the others respond afterwards. This could be the reason for the lines appearing as they do. Furthermore, Miles plays sparsely, not stringing melodies together, but rather making short statements with a lot of space between them, this is also a reason why the matrix shows these sharp lines of timbre-change instead of square-patterns.
 
-Willie Nelson shows the largest amount of big timbrechanges in the song, but is still quite structured in timbre-organization, indicating clear solo-preferences. The squares surrounding that show a lot of difference though, indicating that this song is more complex then the other ones. This is in contrast with Backyard Ritual, in which a bass-line repeats over and over with a baseline by Marcus Miller. The only real differences are the intro, outro and when the Saxophone takes a short solo around the 180 mark.
+Willie Nelson shows the largest amount of big timbre changes in the song, but is still quite structured in timbre-organization, indicating clear solo-preferences. The squares surrounding that show a lot of difference though, indicating that this song is more complex then the other ones. This is in contrast with Backyard Ritual, in which a bassline repeats over and over with a baseline by Marcus Miller. The only real differences are the intro, outro and when the Saxophone takes a short solo around the 180 mark.
 
-Overall, the songs are quite differently structured from eachother, showing differences in Miles approach during his phases. These are of course not fully representative of his phases, but provide a good summary and indication. Next, lets check with cepstrograms how the timbres are distributed.
-
-
-
-### Miles' Timbres started off uninterpretable {data-commentary-width=500}
-
-```{r}
-library(ggpubr)
-
-HN_cep <- Half_nelson %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    geom_tile(show.legend = FALSE) +
-    labs(x = '', y = NULL, fill = 'Magnitude') +
-    scale_fill_viridis_c(option = 'D') +
-    Spotify_SSM + 
-    theme(plot.title = element_text(size=12)) +
-    ggtitle("Half Nelson (1940-1949)") 
-
-
-HN_cep2 <- Half_nelson %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    geom_tile() +
-    Spotify_SSM + 
-    labs(x = '', y = NULL, fill = 'Magnitude') +
-    scale_fill_viridis_c(option = 'D') +
-    theme(plot.title = element_text(size=12)) +
-    ggtitle("Half Nelson (1940-1949)")
-
-```
-
-```{r}
-Bop_cep <- Bopli %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    Spotify_SSM + 
-    geom_tile(show.legend = FALSE) +
-    labs(x = 'Time (s)', y = NULL, fill = 'Magnitude') +
-    scale_fill_viridis_c(option = 'D') +
-    theme(plot.title = element_text(size=12)) +
-    ggtitle("Boplicity (1950-1955)")
-
-```
-
-
-```{r}
-SW_cep <- SW %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    Spotify_SSM + 
-    geom_tile(show.legend = FALSE) +
-    labs(x = '', y = NULL, fill = 'Magnitude') +
-    scale_fill_viridis_c(option = 'D') +
-    theme(plot.title = element_text(size=12)) +
-    ggtitle("So What (1956-1962)") 
-```
-
-
-```{r}
-Dol_cep <- Dolores %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    geom_tile(show.legend = FALSE) +
-    Spotify_SSM + 
-    labs(x = '', y = NULL, fill = 'Magnitude') +
-    scale_fill_viridis_c(option = 'D') +
-    ggtitle("Dolores (1963-1968") +
-    theme(plot.title = element_text(size=12))
-
-```
-
-
-```{r}
-WN_cep <- WN %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    Spotify_SSM + 
-    geom_tile(show.legend = FALSE) +
-    labs(x = 'Time (s)', y = NULL) +
-    scale_fill_viridis_c(option = 'D') +
-   ggtitle("Willie Nelson (1969-1975)") + 
-      theme(plot.title = element_text(size=12))
-   
-
-
-```
-
-
-```{r}
-BYR_cep <- BYR %>% 
-    compmus_gather_timbre %>% 
-    ggplot(
-        aes(
-            x = start + duration / 2, 
-            width = duration, 
-            y = basis, 
-            fill = value)) + 
-    Spotify_SSM + 
-    geom_tile(show.legend = FALSE) +
-    labs(x = '', y = NULL, fill = 'Magnitude') +
-    scale_fill_viridis_c(option = 'D') +
-    ggtitle("Backyard Ritual (1980-1991)") + 
-   theme(plot.title = element_text(size=12))
-
-legend <- get_legend(HN_cep2)
-legend <- as_ggplot(legend)
-
-
-lay <- rbind(c(1,1,1,2,2,2,3,3,3,7),
-             c(4,4,4,5,5,5,6,6,6,7))
-
-```
-
-![](Cepstrograms.png)
-
-***
-
-When looking at the Cepstrograms, the following two things become apparent:
-
-- The first 3 phases show a lot more activity on all bands of timbre, indicating more timbre diversity.
-- The timbregrams seem to decrease in overall activity during his lifetime.
-
-
-The Half Nelson chart looks almost completely uninterpretable, except for the dip in activity of band c03 at the 120 mark, which is when the drums stop and a bass solo is played. The recording itself however is plagued by lots of background noise, since recording techniques weren't as great as they are now back then. This is solved during boplicity more or less, but this composition has a lot of instruments (6 piece brass band and a rhythm section). Short solo's are taken in Boplicity, but they are not easily identifiable in the cepstrogram. So What starts with drums and piano, and c02 is absent during this intro, indicating perhaps that this band is covered by the drums. C05 and C08 might be candidates for parts of the bass and the drums. 
-
-With the bottom three panels, a clearer structure becomes apparent, in which there is a subdivision of instruments. Dolores has quite a strict solo-program, as does Willy Nelson.
-
-
-It appears once again that Miles followed jazz tradition, in which usually 1 soloist is playing, accompanied by a rhythm section. Rhythm is the last component that we'll check before moving on to justifying the phases. 
+Overall, the songs are quite differently structured from each other, showing differences in Miles approach during his phases. These are of course not fully representative of his phases but provide a good summary and indication. 
 
 
 
@@ -946,7 +710,7 @@ It appears once again that Miles followed jazz tradition, in which usually 1 sol
 ![](Tempograms.png)
 
 ***
-First let me list the self-measured and Spotify tempo's of all the pieces:
+Tempograms provide insight in how tempo evolves during a musical piece, once again the x-axis contains the song duration and the y-axis contains the measured bpm (this tempogram is based on energy), with brighter areas indicating larger amounts of energy. Here is a list of self-measured tempos and Spotify tempos of all the pieces:
 
 - Half Nelson: 192 bpm, Spotify: 94,5 bpm
 
@@ -961,17 +725,15 @@ First let me list the self-measured and Spotify tempo's of all the pieces:
 - Backyard Ritual: 100 bpm, Spotify: 100 bpm
 
 
-Judging by the tempograms, it seems like only Half Nelson was dead on, this was probably because of the walking bass and the fact that the drums also stayed fairly constant. This kept the novelty constant which made it easier to determine tempo. For Boplicity the line around 135 bpm is also quite discernable, once again due to the drums being less busy and the bass providing a solid backbone.
+Judging by the tempograms, it seems like only Half Nelson was dead on, this was probably because of the walking bass and the fact that the drums also stayed fairly constant. This kept the novelty of energy constant which made it easier to determine tempo. For Boplicity the line around 135 bpm is also quite discernible, once again due to the drums being repetitive and the walking bass.
 
-For So What the intro is all over the place, which makes sense as this was played rubato. After that it settles in around 130 bpm, which is also a visible line in the tempogram, with triple time also being very clear (390 bpm). It gets a bit off track during John Coltrane's saxophone solo however, which is quite funny when listening to the song, because it is very clear Coltrane dances around the rhythm a lot, whereas Miles stays a lot closer to the pulse. These influences are seen in Dolores as well, in which the best discernable line is around 560 bpm, this makes a lot of sense since Miles solo's almost exclusively consist of 8th notes and Wayne Shorter's solo does this as well. On top of that the drums feature a lot more fills than earlier years. 
+For So What the intro is all over the place, which makes sense as this was played rubato (without clear tempo). After that it settles in around 130 bpm, which is also a visible line in the tempogram, with triple time also being very clear (390 bpm). It gets a bit off track during John Coltrane’s saxophone solo however, which is quite funny when listening to the song, because it is very clear Coltrane moves around the rhythm a lot, whereas Miles stays a lot closer to the pulse. These influences are seen in Dolores as well, in which the best discernible line is around 560 bpm, this makes a lot of sense since Miles solos almost exclusively consist of 8th notes and Wayne Shorter’s solo does this as well. On top of that the drums are a lot less repetitive during these years.
 
-Willie Nelson and Backyard Ritual are most clear in their tempograms, with Willie Nelson having a clear line around 410 bpm. This is weird, since the song speeds up and slows down a lot (the line does have some upward curve to it). I would've expected the lines to be less pronounced, but did not except the quadruple mark do be this strong. The drums do subdivide the piece into 16th notes, and do play a lot of these notes in fills and such, so perhaps that is the reason why that line is so prominent. Backyard Ritual has the straightest line of all tempograms, which is logical since it is using a drumcomputer as backing track. Once again the subdivision of the drums is in 16th notes, which makes the 400 bpm mark the logical winner in the tempogram.
+Willie Nelson and Backyard Ritual are most clear in their tempograms, with Willie Nelson having a clear line around 410 bpm. This is weird, since the song speeds up and slows down a lot (the line does have some upward curve to it). I would’ve expected the lines to be less pronounced but did not expect the quadruple bpm mark to be this strong. The drums do subdivide the piece into 16th notes and emphasize this a lot, so perhaps that is the reason why that line is so prominent. Backyard Ritual has the straightest line of all tempograms, which is logical since it is using a drum computer as backing track. Once again, the subdivision of the drums is in 16th notes, which makes the 400 bpm mark the logical winner in the tempogram.
 
-The takeaway from all this is that Miles is not as rhythmically adventurous a soloist as Coltrane was. It would've been interesting to check out the novelty functions as well to get confirmation on my hypotheses about subdivisions of beats, but I feel like that would make the corpus too long. 
+The takeaway from all this is that Miles is not as rhythmically adventurous a soloist as Coltrane was. It would’ve been interesting to check out the novelty functions as well to get confirmation on my hypotheses about subdivisions of beats, but I feel like that would make the corpus too long.
 
-When comparing tempograms with Spotify's decisions, it appears that Spotify got close to the right bpm most of time (which means their algorithm can detect differences between beats and subdivisions), except for Dolores and Half Nelson, which Spotify measured to be around half-time, whereas the bass clearly walks twice as fast in that piece.
-
-Miles' foray into drumcomputers and hiphop is quite characteristic of his later years, and it seems to translate as well in his most typical track. Furthermore, the franticness building in his 1663-1975 years is quite obvious from the building tempo's and heavy typical pieces.
+When comparing tempograms with Spotify’s decisions, it appears that Spotify got close to the right bpm most of time (which means their algorithm can detect differences between beats and subdivisions), except for Dolores and Half Nelson, which Spotify measured to be around half-time, whereas the bass clearly walks twice as fast in that piece. 
 
 
 
@@ -980,8 +742,7 @@ Miles' foray into drumcomputers and hiphop is quite characteristic of his later 
 ![](Tempo_sum.png)
 
 ***
-After analysing the typical tracks, it is time to check out if they hold any validity when analysing more songs per time period. Before interpretating the graph, here is a table with summaries on loudness, tempo and duration. I've tried to compare timbres across playlist, but this yielded no big differences between time-periods
-
+After analysing the typical tracks, it is time to check out if they hold any validity when analysing more songs per time period. Before interpreting the graph, here is a table with summaries on loudness, tempo and duration. I’ve tried to compare timbres across time periods, but this yielded no big differences between time-periods. For the graph I have looked at only the first 50 songs of each phase, since computing otherwise provided errors and took very long.
 
 | Time Period     | Feature       | Mean      | SD          |
 |-----------------|---------------|-----------|-------------|
@@ -1007,18 +768,17 @@ After analysing the typical tracks, it is time to check out if they hold any val
 
 For the graph I have looked at only the first 50 songs of each phase, since computing otherwise provided errors and took very long. 
 
-Looking at the graph and the table, it becomes apparent that the song duration steadily increases over the phases, eventually dropping back in his last phase. A big increase is in his 1969-1975 years, with a whopping 850 second average duration (although standard deviation is substantial) 
+Looking at the graph and the table, it becomes apparent that the song duration steadily increases over the phases, eventually dropping back in his last phase. A big increase is in his 1969-1975 years, with a whopping 850 second average duration (although standard deviation is substantial).
 
-The standard deviations of the graph in tempo in the first five phases are evenly dispersed between 2 and 5 bpm. Miles' music was all played live during this time and bands tend to deviate between tempo's compared to drumcomputers and such. This becomes visible in his last phase, in which most of the tempo SDs are concentrated between 0 and 1. 
+The standard deviations of the graph in tempo (indicating tempo consistency) in the first five phases are evenly dispersed between 2 and 5 bpm. Miles’ music was all played live during this time and bands tend to deviate between tempo’s compared to drum computers and such. This becomes visible in his last phase, in which most of the tempo SDs are concentrated between 0 and 1.
 
-
-Overall it can be said that the typical Miles' songs accurately capture characteristics of the phases themselves.
-
-
-<i>This was the analysis of Miles' most typical pieces according to Spotify and my own selection of phases. Are these phases justified however? Click on the tab Predicting Phases. </i>
+Concluding this section, it can be seen that Miles’ typical tracks are somewhat representative of their time periods. Firstly: Miles only favoured slower tempos in his last time period, before that the tempos were more distributed. The MFCCs showed a lot of activity in his earlier years, indicating a bigger presence of musical instruments, as in later life he preferred smaller ensembles. The constant in this time was that even in the frantic fusion period, Miles still preferred the traditional jazz song structure.
 
 
-Predicting Phases {.storyboard}
+<i>This was the analysis of Miles' most typical pieces according to Spotify and my own selection of phases. Are these phases justified however? Click on the tab Predicting Miles. </i>
+
+
+Predicting Miles {.storyboard}
 ===============================================
 
 
@@ -1028,13 +788,13 @@ Predicting Phases {.storyboard}
 
 ***
 
-In the beginning of my corpus I decided to split Miles' entire oeuvre into 6 distinct categories, based on the kind of music he was making at the time and the sidemen he surrounded him with (unfortunately very little sidewomen), but I never checked whether the division into these categories was valid. It might be that another division of Miles' periods based on Spotify data would fit better, thereby threatening the constent validity of my corpus. With the arrival of prediction techniques in this course, I now have the tools to check if an algorithm can tell these different time periods apart from each other as well as I can. If that is the case, it provides proof that my current subset of phases is justified. Cluster analysis can provide further alternatives in splitting up the data, so perhaps that could either confirm or refute my hypothesis. Lets start with the predictive models.
+In the beginning of my corpus I decided to split Miles’ entire oeuvre into 6 distinct categories, based on the kind of music he was making at the time and the sidemen he surrounded him with, but I never checked whether the division into these categories was valid. It might be that another division of Miles’ periods based on Spotify data would fit better, thereby threatening the content validity of my corpus. Through prediction, I now have the tools to check if an algorithm can tell these different time periods apart from each other as well as I can. If that is the case, it provides proof that my current subset of phases is justified. Cluster analysis can provide further alternatives in splitting up the data, so perhaps that could either confirm or refute my hypothesis. Let’s start with the predictive models:
 
-After fiddling around with the KNN-means method and the random forest method, I saw that the random forest model performed slightly better overall, so that became the model of choice, the tables on the left represent the unstandardized results and the standardized results in the form of percentages. The overall predictive succes of the model was 78%, which is promising.
+After fiddling around with the KNN-means method and the random forest method, I saw that the random forest model performed slightly better overall, so that became the model of choice, the tables on the left represent the unstandardized results and the standardized results in the form of percentages. The overall predictive success of the model was 78%, which is promising.
 
-First of all, there is a very clear distinction between early miles (1945-1962), transition miles (1963-1968) and late miles (1969-1991), as virtually none of the earlier songs get wrongfully assigned to later periods and vice versa. The transition period is called this because this is a period where Miles' started distancing himself from traditional harmony and general music theory that evolved from the swing, bop and modal age, as he himself was influenced by the free jazz movement from Ornette Coleman, Cecil Taylor and Eric Dolphy amongst others. The Fusion (69-75) and the Modal (1956-1962) periods are the most distinct of all periods in this table, with very high accuracy. But what were the strongest predictors in this model?
+First, there is a very clear distinction between early Miles (1945-1962), transition Miles (1963-1968) and late Miles (1969-1991), as virtually none of the earlier songs get wrongfully assigned to later periods and vice versa. The Fusion (69-75) and the Modal (1956-1962) periods are the most distinct of all periods in this table, with very high accuracy. But what were the strongest predictors in this model?
 
-### How predictable are Miles' Phases? {data-commentary-width=500}
+### Song duration saw the biggest changes over Miles' career {data-commentary-width=500}
 
 
 ![](Predictors.png)
@@ -1048,25 +808,69 @@ This graphs shows the importance of each predictor when building the model, all 
 
 The predictors are ordered from low to high on their importance for predicting the time periods by their MeanDecreaseGini values, which is an indicator of predictor importance when using Random Forest Model. A higher score on MeanDecreaseGini translates to a higher importance for that predictor.
 
-The predictor duration comes out as the most important predictor of this model, which makes a lot of sense given the last section of my corpus, which showed a lot of differences in duration per time period. The reasons for this are as follows: recording techniques in the 40ies and 50ies were generally still not perfect and people did not have the means and the tape to record long songs. This all got better during the 50ies however, in which Miles started recording his first 10 minute plus songs (the song All Blues from 1959 for instance is 11 minutes). So apart from Miles' his own preferences for duration, he was also very heavily limited by the techniques at the time. Still, the duration of his songs gradually increased and culminated during his fusion period (1969-1975), in which jams could last for over 30 minutes on some instances. 
+The predictor duration comes out as the most important predictor of this model, which makes a lot of sense given the last section of my corpus, which showed a lot of differences in duration per time period. The reasons for this are as follows: recording techniques in the 40ies were not suited for long pieces. So apart from Miles’ his own preferences for duration, he was also very heavily limited by the techniques at that time. The duration of his songs gradually increased and culminated during his fusion period (1969-1975), as can be seen in the table from the previous section.
+
+The second most important predictor is acousticness, which already was apparent from the slope graph in the intro section. The acousticness heavily declined over the Miles’ lifespan, which makes it a prime predictor for the model. After 1969, most of his bandmates played electrical instruments. He himself however, never strayed far from his iconic muted trumpet sound.
+
+Coming in third/fourth are the timbre features c06/c10,I will provide an interlude dedicated to this part in the next paragraph.
+
+At the bottom are tempo and the keys, which makes sense as well. Jazz-culture is jam-culture, each musician is brought up on jam-sessions, in which any musician could call on any tune in any key (and at any tempo). Miles showed a consistent preference or aversion for specific keys, as shown earlier, although he did play a lot in F during his earlier years. 
+
+During the building of my model, I culled several predictors, of which almost all keys, the tempo and speechiness variable (since most of the music is instrumental). Furthermore, I incorporated interactions in the model based on the slope graph of the first sections. I created interactions between energy/acousticness and instrumentalness/energy. All modifications added about 7% to the prediction accuracy, and a random forest performed about 10% better on average than a Knn-means model.
 
 
-The second most important predictor is acousticness, which already was apparent from the slopegraph in the intro section. The acousticness heavily declined over the Miles' lifespan, which makes it a prime predictor for the model. Miles was a constant innovator, and the increasing popularity of electric guitars, piano's, basses and synthesizer in the mainstream also affected him. After 1969, most of his bandmates played electrical instruments. He himself however, never strayed far from his iconic muted trumpet sound.
-
-After these predictors the timbre feature c06 is also quite important as a predictor, which is strange since I've not seen any indication that this might be the case. On the next panel I will provide a short detour dedicated to this part.
-
-At the bottom are tempo and the keys, which makes a lot of sense as well. Jazz-culture is jam-culture, each musician is brought up on jam-sessions, in which any musician could call on any tune in any key (and at any tempo). This is reflected in Miles' music as well, I could perhaps visualize the distribution of tempi and keys to further substantiate this point.
-
-During the building of my model, I culled several predictors, of which almost all keys, the tempo and speechiness variable (since most of the music is instrumental). Furthermore, I incorporated interactions in my random forest model based on the slopegraph in the other panel. I created interactions between energy/acousticness and instrumentalness/energy. All modifications added about 7% to the prediction accuracy, and a random forest performed about 10% better on average than a Knn-means model.
-
-
-### MFCC 06 and 10 are great predictors, but why? {data-commentary-width=500}
+### Interlude: MFCC 06 and 10 are great predictors, but why? {data-commentary-width=500}
 
 ![](Timbre_comps.png)
 
 ***
 
-In the panel I have plotted the values of MFCC 06 and 10. The MFCC (Mel-Frequency Cepstral Coefficient) did come by earlier when discussing timbres, but except for a general decrease in activity in the higher "less important" MFCCs, I did not spot anything unusual. I was wrong. Looking at this panel, one can discern somewhat of a trend where the first phase shows a lot of activity on the c06 MFCC, with the next two phases showing increasing activity in the c10 MFCC as well. The last two phases drastically differ from the other phases, as they show fewer presence of both c10 and c06. 
+In the panel I have plotted the values of Mel-frequency Cepstral Coefficients (MFCC) c06 and c10. MFCCs range from c01 to c12. C01 can be interpreted as loudness and from there on upwards,  the “importance” of each MFCC decreases.
 
-As far as interpretation goes, MFCC can get quite tricky. In general they represent components of the overall timbre of a piece, but it by no means translates to a specific instrument in this instant. The biggest transition during Miles' switch from acoustic to electrical (starting in 1969), might be the cause of the aforementioned pattern. During this time, the piano and bass switched from acoustic to electric, with some electric guitar and changes in melody instruments (soprano sax and wind-instruments), only the drums and trumpet sound remained constant. The first four phases were mostly piano, bass, saxophone, trumpet and drums, the last two phases were mostly electrical instruments and the final phase also had a lot of samples and drum-computers. The overall changes in timbre seen here, might relate to the overall drop in acousticness (also a big predictor), but as mentioned before this is not easily derived from MFCCs.
+As far as interpreting MFCCs goes, it can get quite tricky. In general they represent components of the overall timbre of a piece, but it by no means translates to a specific instrument. The biggest transition during Miles’ switch from acoustic to electrical (starting in 1969), might be the cause of the aforementioned pattern. During this time, only the drums and trumpet sound remained constant. The first four phases were mostly acoustic and the last two phases were mostly electrical instruments. The final phase also had a lot of samples and drum-computers. The overall changes in timbre seen here, might relate to the overall drop in acousticness (also a big predictor), but as mentioned before this is not easily derived from MFCCs.
+
+### Clusters analysis provides some evidence for the phases {data-commentary-width=500}
+
+![](cluster.png)
+
+***
+To end my corpus, I’ve used cluster analysis to check if my hypothesis about Miles’ time periods were justified. I started out by using all predictors, but this yielded inconclusive results, so I used to first 8 predictors of the predictor panel (up until Valence) to cluster the songs. After scaling and centring, I used the K-means method to determine clusters.
+
+The top left panel shows a scree plot in which the Within Sum of Squares (WSS) was calculated for each possible cluster amount k. The WSS provides a summary statistic of the distance of each datapoint to the centroid of their respective cluster. The scree plot is also known as an elbow plot, because to find the best cluster-amount you must look at “elbow” or clearest pivot point of the plot. In this case the plot shows a clear drop-off after class 6, with class 5 as an optional second choice. This provides some proof that my own time-period based clustering is justified but does not tell the entire story.
+
+Below the scree plot is a Silhouette plot. The average silhouette widths on the y-axis provide a measure about how well the datapoints fit to their respective cluster, based on how near they are to other datapoints sharing that cluster and how far away they are of datapoints of neighbouring clusters. The range of the silhouette width per data point is from -1 to 1, with a positive value indicating a better fit to its own cluster and a negative value indicating better fit for other clusters. Overall, the average silhouette width is quite low for all classes, indicating that the clusters overall are not that well defined. This is also visible in the histograms and the scatterplot on the right. The centroids (marked by diamonds) show the centre of each cluster for the two strongest predictors. As you can see, cluster 6 is the farthest away, but also has a large average distance of the datapoints to their centroids. The clusters 3,4 and 5 are close together.
+
+Finally, the barplots in the bottom left. It appears that cluster 1 quite accurately belongs to the final phase and cluster 6 and cluster 2 belong mostly to the fusion phase. What is interesting is that there are no clusters clearly favouring the first bebop phase or the 1963-1968 phase, as the 1945-1950 phase is mostly grouped with the first three phases in cluster 3. The 1963-1968 phase mostly gets grouped with the 1969-1975 phase, indicating that the switch from acoustic to electric was slower and the phases are somewhat similar.
+
+The last panel of my corpus will try to integrate all the findings of the previous sections and summarize the insights to conclude on what really changed and stayed the same over the course of Miles’ career.
+
+
+### Conclusion {data-commentary-width=700}
+
+![Miles throughout the years](Milescollage.jpg)
+
+
+
+***
+
+When starting out this corpus, I wanted to check how Miles Davis' music changed over time, and whether this was visible through Spotify data. What stayed constant and what was different during each time period according to Spotify:
+
+The constants:
+- Average Tempo
+- Key preference
+- Song structure
+
+The differences:
+- Acousticness
+- Song duration
+- Timbres (electrical or acoustic)
+- Tempo standard deviation (especially in his last years)
+
+Through clustering it became apparent that 6 clusters best represent the data, although the clusters do not exactly follow the time periods I formulated. Especially the earlier bebop phase and the second quintet phase were hard to properly identify, but the later phases were all very easily discernable. 
+
+The corpus eventually only covered a limited amount of features to be explored, with chord-examination, key-examination and even melody examination through spectrograms still to be evaluated. Furthermore I would've liked to spend more time evaluating Timbres, as these consistently came up as important predictors. Another shortcoming is that I could've spend more time looking at standard deviations when means did not provide valuable information. Hopefully, you've enjoyed this corpus and have gotten some information on the enigma that is Miles Davis. 
+
+
+
+
 
