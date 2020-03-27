@@ -101,7 +101,6 @@ Spotify_SSM <- theme_classic() +
 Theme_facet <- Spotify_SSM + 
     theme(panel.grid.major.y =  element_line(colour = "white"),
           panel.background = element_rect(fill = 'lightgrey'),
-          F,
           strip.background =element_rect(fill="#181413", color = "#d9d9d9"),
           strip.text = element_text(color = "#d9d9d9"))
 
@@ -118,8 +117,8 @@ The Man with the Horn {.storyboard}
 =============================================================
 
 
-### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=1050}
-![Self-portrait by Miles Davis](milespainting5.png)
+### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=700}
+#![Miles throughout the years](Milescollage.jpg)
 
 
 
@@ -850,8 +849,7 @@ The last panel of my corpus will try to integrate all the findings of the previo
 
 ### Conclusion {data-commentary-width=700}
 
-![Miles throughout the years](Milescollage.jpg)
-
+<iframe src="https://player.vimeo.com/video/319095910" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
 
 ***
