@@ -118,7 +118,7 @@ The Man with the Horn {.storyboard}
 
 
 ### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=700}
-#![Miles throughout the years](Milescollage.jpg)
+![Miles throughout the years](Milescollage.jpg)
 
 
 
