@@ -117,8 +117,8 @@ The Man with the Horn {.storyboard}
 =============================================================
 
 
-### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=700}
-![Miles throughout the years](Milescollage.jpg)
+### The Musically shapeshifting genius that is Miles Davis {data-commentary-width=1100}
+![Self Portrait by Miles Davis](Miles 3.png)
 
 
 
@@ -150,7 +150,7 @@ Pushing the limits of hard-bop, Miles wanted to winnow harmonic complexity even 
 After “dumbing down” the music, Miles wanted to experiment again with harmonies, this time eschewing traditional harmony and pushing for less structured, more atonal music (heavily influenced by the harmonic departures of John Coltrane and the Free Jazz Movement). This is the period of his second great quintet, involving amongst others the youngsters Wayne Shorter and Herbie Hancock.
 
 <b>Frantic Fusion Miles: 1969-1975</b> <br>
-With electronic instruments bursting onto the scene, and with his bandmate Herbie Hancock being at the forefront of the revolution, Miles could not be left behind. He surrounded him with some of these frontrunners and went full electrical, except for his trumpet. This period is characterized by long jams in which multiple genres (mostly from the funk/soul and rock influence) were blended with his own sounds, to create an frantic melting pot.
+With electronic instruments bursting onto the scene, and with his bandmate Herbie Hancock being at the forefront of the revolution, Miles could not be left behind. He surrounded him with some of these frontrunners and went full electrical, except for his trumpet. This period is characterized by long jams in which multiple genres (mostly from the funk/soul and rock influence) were blended with his own sounds, to create a frantic melting pot.
 
 
 <b>The Lost Period (1975-1980)</b> <br>
@@ -249,11 +249,13 @@ ggslopegraph(Miles_slope, offset.x = 1, main = "Mean Audio Features Of Miles Dav
 ```
 
 ***
-The slope graph plot on the right shows Miles’ changes in the average Spotify features for each Time period. Very clearly visible is the huge dip in Acousticness during his lifetime. Other interesting elements are the general increase in energy, a maximum of liveness during his ’63 to ’68 phase and a decline in overall valence, which increased during his final years. Danceability stayed constant, with a big increase during his last years.
+The slope graph plot on the left shows Miles’ changes in the average Spotify features for each Time period. Clearly visible is the huge decline of acousticness during his lifetime. Other interesting elements are the general increase in energy, a maximum of liveness during his ’63 to ’68 phase and a decline in overall valence, which increased during his final years. Danceability stayed constant, with a big increase during his last years.
 
 The acousticness drop is easily interpreted, since he mostly switched to electrical instruments later in life. A more difficult trend to interpret is the valence line. Valence is a measure of joyfulness in music, and as Miles became more erratic, his overall vibe became less joyful, after the hiatus it goes back to his original level, perhaps indicating that this hiatus motivated him to make more joyful music.
 
 As valence dropped, energy rose, which is perhaps an odd combination, because you would assume that energetic music would be joyful music. The energy increase is perhaps best explained by the increase in Miles increasing franticness. Although he seems to have solved the balance of valence and energy in his final years. Even increasing danceability as well (perhaps hip-hop influences are responsible for this).
+
+A limitation of the slope graph is that it currently shows no indication of the feature variances, which could provide more information on how broad the spectrum of the features were per time period, later on there will be more information on this.
 
 
 ### Miles in terms of tempo, key and mode {data-commentary-width=400}
@@ -262,10 +264,10 @@ As valence dropped, energy rose, which is perhaps an odd combination, because yo
 # miles_plot <- ggplot(miles_decades, aes(x = danceability, y = energy, col = Time_Period)) + 
 #   geom_jitter()
 
-tempo <- ggplot(miles_long, aes(x = Time_Period, y = tempo, fill = Time_Period), main = "Miles' Tempo's") + 
+tempo <- ggplot(miles_long, aes(x = Time_Period, y = tempo, fill = Time_Period), main = "Miles' Tempos") + 
  geom_boxplot(show.legend = FALSE) + 
    xlab("Time Period") + ylab("Tempo in bpm") + 
-  ggtitle("Miles' Tempo's") + 
+  ggtitle("Miles' Tempos") + 
   Spotify_SSM +
   theme(text = element_text(),
         axis.text.x = element_text(size=7, angle = 90))
@@ -278,7 +280,7 @@ mode <- revalue(mode, c("0"="Minor", "1"="Major"))
 
 miles_long$mode <- mode
         
-Modes <- ggplot(miles_long, aes(x = mode, fill = Time_Period), main = "Miles' Tempo's") + 
+Modes <- ggplot(miles_long, aes(x = mode, fill = Time_Period), main = "Miles' Tempos") + 
  geom_bar(show.legend = FALSE)  + ylab("Count") +
   ggtitle("Miles' Modes") + 
   facet_wrap(. ~ Time_Period) + 
@@ -305,7 +307,7 @@ key <- revalue(key,
 
 miles_long$key <- key
 
-keys <- ggplot(miles_long, aes(x = key, fill = key), main = "Miles' Tempo's") + 
+keys <- ggplot(miles_long, aes(x = key, fill = key), main = "Miles' Tempos") + 
  geom_bar(show.legend = FALSE)  + ylab("Count") +
   ggtitle("Miles' Keys") + 
   Theme_facet +
@@ -327,7 +329,7 @@ grid.arrange(Modes, tempo, keys2, layout_matrix = lay)
 <b>Miles' Modes </b> <br>
 From the graph in the top left corner, it becomes apparent that Miles had a slight preference for the major key most of his life, although this effect is not substantive and could be due to errors in assigning modes in Spotify. The only clear difference is during his erratic period, in which Major keys seem to dominate his songs, although valence in this time dropped, showing that the major key is not always the happy key.
 
-<b>Miles' Tempo's </b> <br>
+<b>Miles' Tempos </b> <br>
 Overall, the tempos seem to be quite constant during Miles’ lifetime. Interesting is that the spread of the first phase is sloped towards the higher tempo’s (indicating the influence of bebop) and is slowing down during the cool and hard-bop phases. Another interesting outlier is the black dot at the zero mark during his 1969-1975 phase, this is an introduction track of a live album so should be omitted.
 
 <b>Miles' Keys </b> <br>
@@ -739,7 +741,7 @@ When comparing tempograms with Spotify’s decisions, it appears that Spotify go
 
 
 
-### Zooming out: Summarizing low level playlist features{data-commentary-width=500}
+### Zooming out: Summarizing low level phase features{data-commentary-width=500}
 
 ![](Tempo_sum.png)
 
@@ -849,7 +851,7 @@ The last panel of my corpus will try to integrate all the findings of the previo
 
 ### Conclusion {data-commentary-width=700}
 
-<iframe src="https://player.vimeo.com/video/319095910" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+![Miles throughout the years](Milescollage.jpg)
 
 
 ***
